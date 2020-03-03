@@ -83,8 +83,12 @@ def status_check():
   time.sleep(current['cooldown'])
   return result.json()
 # status_check()
+
 def movement(direction, next_room_id=None):
-  url = 'https://lambda-treasure-hunt.herokuapp.com/api/adv/move/'
+  if graph[current['room_id']][1]['terrain'] == 'CAVE':
+    url = 'https://lambda-treasure-hunt.herokuapp.com/api/adv/move/'
+  else:
+    url = 'https://lambda-treasure-hunt.herokuapp.com/api/adv/fly/'
   if next_room_id is not None:
     data = f'{{"direction":"{direction}","next_room_id": "{next_room_id}"}}'
     if graph[next_room_id][1]['terrain'] == 'CAVE':
@@ -109,7 +113,6 @@ def movement(direction, next_room_id=None):
   graph[result['room_id']][0][inverse_directions[direction]] = current['room_id']
   print(result)
   return result
-# bfs(current['room_id'], "?")
 inverse_directions = {"n": "s", "s": "n", "e": "w", "w": "e"}
 # prev_move = None
 while True:
@@ -127,7 +130,7 @@ while True:
     # if status_check()['gold'] >= 1000:
     #   # Change name to get clue for Lambda coin
     # Wishing well = 55 , Shop = 1 **************************************************
-    target = bfs(current['room_id'], 22)[1]
+    target = bfs(current['room_id'], 492)[1]
     print('Heading to Target..')
     for direction, room_id in current_exits.items():
       if room_id == target:
