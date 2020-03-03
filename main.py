@@ -113,6 +113,20 @@ def movement(direction, next_room_id=None):
   graph[result['room_id']][0][inverse_directions[direction]] = current['room_id']
   print(result)
   return result
+
+def recall():
+  recall = input("Do you wish to recall back to room 0? (y/n): ")
+  if recall == 'y':
+    print("Recalling...")
+    url = 'https://lambda-treasure-hunt.herokuapp.com/api/adv/recall/'
+    result = requests.post(url, headers={'Content-Type':'application/json',
+                                       'Authorization': f'Token {token}'})
+    print(result.json())
+    time.sleep(current['cooldown'])
+    return result.json()
+    
+
+recall()
 inverse_directions = {"n": "s", "s": "n", "e": "w", "w": "e"}
 # prev_move = None
 while True:
