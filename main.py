@@ -144,7 +144,7 @@ while True:
     # if status_check()['gold'] >= 1000:
     #   # Change name to get clue for Lambda coin
     # Wishing well = 55 , Shop = 1 **************************************************
-    target = bfs(current['room_id'], 492)[1]
+    target = bfs(current['room_id'], 100)[1]
     print('Heading to Target..')
     for direction, room_id in current_exits.items():
       if room_id == target:
