@@ -71,3 +71,5 @@ while True:
   response = mine_coin(new_proof)
   print(response)
   time.sleep(response['cooldown'])
+  if (response['messages'] == ['New Block Forged']):
+    break
